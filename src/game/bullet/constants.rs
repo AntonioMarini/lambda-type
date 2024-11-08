@@ -1,0 +1,3 @@
+pub const BASE_BULLET_LIFETIME : i128 = 1000;
+pub const BASE_BULLET_SPEED : f32 = 1000.0;
+pub const BASE_BULLET_DAMAGE : f32 = 20.0;
