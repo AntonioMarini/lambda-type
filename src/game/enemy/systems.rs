@@ -1,7 +1,7 @@
-use bevy::prelude::*;
-use bevy_rapier2d::prelude::{Collider, RigidBody, Sensor};
+use bevy::{math::NormedVectorSpace, prelude::*};
+use bevy_rapier2d::prelude::{Collider, RigidBody, Sensor, Velocity};
 
-use crate::{game::common::components::{Health, Speed}, resources::GameTextures};
+use crate::{game::{common::components::{Health, Orientation, Speed}, player::components::Player}, resources::GameTextures};
 
 use super::components::*;
 
@@ -39,7 +39,27 @@ pub fn spawn_enemy(
         .insert(Sensor);
 }
 
-// should just apply velocity to the enemy
-pub fn enemy_move_system(){
+pub fn follow_player(
+    player_query: Query<&Transform, With<Player>>,
+    mut enemies_query: Query<(&Transform, &mut Velocity, &Speed), With<Enemy>>
+){
 
+    if let Ok(player_trans) = player_query.get_single() {
+        for (enemy_trans,mut enemy_velocity, speed) in enemies_query.iter_mut() {
+            if enemy_trans.translation.truncate().distance(player_trans.translation.truncate()) < 50. {
+                break;
+            }
+            let target =  player_trans.translation.truncate() - enemy_trans.translation.truncate();
+            enemy_velocity.linvel = target.normalize() * speed.value;
+        }
+    }
+}
+
+pub fn rotate_enemy(
+    mut enemies_query: Query<(&mut Transform, &Velocity), With<Enemy>>
+) {
+    for (mut enemy_trans,enemy_velocity) in enemies_query.iter_mut() {
+        let angle = enemy_velocity.linvel.to_angle();
+        enemy_trans.rotation = Quat::from_axis_angle(Vec3::new(0., 0., 1.), angle);
+    }
 }

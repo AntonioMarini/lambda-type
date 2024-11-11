@@ -13,9 +13,7 @@ pub mod gamepad;
 mod game;
 mod main_menu;
 
-fn main() {
-    env::set_var("RUST_BACKTRACE", "full");
-    
+fn main() {    
     App::new()
     .add_plugins(DefaultPlugins.set(ImagePlugin::default_nearest()))
     .init_state::<AppState>()

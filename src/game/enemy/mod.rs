@@ -12,6 +12,6 @@ impl Plugin for EnemyPlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
         app
         .add_systems(OnEnter(AppState::Game), spawn_enemy)
-        .add_systems(Update, (enemy_move_system).run_if(in_state(AppState::Game)));
+        .add_systems(Update, (follow_player, rotate_enemy).chain().run_if(in_state(AppState::Game)));
     }
 }
