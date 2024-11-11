@@ -1,6 +1,7 @@
 use bevy::prelude::*;
+use bevy_rapier2d::prelude::Velocity;
 
-use crate::game::common::components::{Speed, Health, Direction, Velocity};
+use crate::game::common::components::{Health, Speed};
 
 #[derive(Component, Default)]
 pub struct Enemy;
@@ -15,9 +16,8 @@ pub enum EnemyType{
 pub struct EnemyBundle{
     pub marker: Enemy,
     pub enemy_type: EnemyType,
-    pub speed: Speed,
-    pub direction: Direction,
-    pub velocity: Velocity,
     pub health: Health,
-    pub sprite: SpriteBundle
+    pub speed: Speed,
+    pub sprite: SpriteBundle,
+    pub velocity: Velocity
 }

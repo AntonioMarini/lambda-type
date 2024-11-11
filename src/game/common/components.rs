@@ -1,61 +1,6 @@
-
 use bevy::{math::Vec2, prelude::Component};
 
 /* #region Common */
-
-#[derive(Component, Clone, Copy)]
-pub struct Velocity {
-    pub velocity: Vec2
-}
-
-impl Default for Velocity {
-    fn default() -> Self {
-        Velocity {
-            velocity: Vec2::ZERO
-        }
-    }
-}
-
-#[derive(Component, Clone, Copy)]
-#[allow(dead_code)]
-pub struct Speed {
-    pub base_speed: f32,
-    pub max_speed: f32,
-}
-
-impl Default for Speed {
-    fn default() -> Self {
-        Speed { base_speed: 100., max_speed: 100. }
-    }
-}
-
-#[derive(Component)]
-#[allow(dead_code)]
-pub struct Acceleration {
-    pub acceleration: f32
-}
-
-impl Default for Acceleration {
-    fn default() -> Self {
-        Acceleration {
-            acceleration: 0.
-        }
-    }
-}
-
-#[derive(Component, Clone, Copy)]
-pub struct Direction {
-    pub direction: Vec2
-}
-
-impl Default for Direction {
-    fn default() -> Self {
-        Direction {
-            direction: Vec2::ZERO
-        }
-    }
-}
-
 #[derive(Component, Clone, Copy)]
 #[allow(dead_code)]
 pub struct Health{
@@ -86,23 +31,63 @@ impl Default for Boost {
 }
 
 #[derive(Component, Clone, Copy)]
+#[allow(dead_code)]
 pub struct Damage {
-    #[allow(dead_code)]
     pub damage: f32
+}
+
+impl Default for Damage {
+    fn default() -> Self {
+        Damage { damage: 50. }
+    }
 }
 
 #[derive(Component, Clone, Copy)]
 pub struct LifeTime {
     pub lifetime_millis: i128
 }
+
+impl Default for LifeTime {
+    fn default() -> Self {
+        LifeTime { lifetime_millis: 1000 }
+    }
+}
 /* #endregion */
 
 
 /* #endregion */
 
-#[derive(Component, Clone, Copy)]
+#[derive(Component, Clone, Copy, PartialEq, Default)]
 #[allow(dead_code)]
 pub enum Actors {
+    #[default]
+    None,
     Player,
     Enemy
 }
+
+#[derive(Component, Copy, Clone)]
+pub struct Speed {
+    pub value: f32
+}
+
+impl Default for Speed {
+    fn default() -> Self {
+        Speed {value: 100.}
+    }
+}
+
+#[derive(Component, Copy, Clone)]
+pub struct Orientation {
+    pub value: Vec2
+}
+
+impl Default for Orientation {
+    fn default() -> Self {
+        Orientation {
+            value: Vec2::ZERO
+        }
+    }
+}
+
+

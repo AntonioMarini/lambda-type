@@ -13,6 +13,10 @@ impl Plugin for BulletPlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
         app
         .add_event::<BulletShotEvent>()
-        .add_systems(Update, (handle_bullet_shot_event, move_bullet, despawn_bullet_system));
+        .add_systems(Update, (
+            handle_bullet_shot_event, 
+            move_bullet, 
+            bullet_lifetime_system
+        ));
     }
 }
